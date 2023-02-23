@@ -67,7 +67,7 @@ class ListingController extends Controller
     {
         $formFields = $request->validate([
             'title' => 'required',
-            'company' => 'required',
+            'company' => ['required'],
             'location' => 'required',
             'website' => 'required',
             'email' => ['required', 'email'],
@@ -81,6 +81,14 @@ class ListingController extends Controller
 
         $listing->update($formFields);
 
-        return back()->with('message', 'Listing created!');
+        return back()->with('message', 'Listing updated!');
+    }
+
+    // Delete listing
+
+    public function destroy(Listing $listing)
+    {
+        $listing->delete();
+        return redirect('/')->with('message', 'Listing deleted!');
     }
 }
